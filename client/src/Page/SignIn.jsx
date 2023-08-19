@@ -9,6 +9,7 @@ import { useMutation, useQueryClient} from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import {  LoginUser } from "../Api/Api"
 import { toast } from "react-hot-toast"
+import { Input,Button } from "@material-tailwind/react";
 // import axios from 'axios'
 
 
@@ -71,13 +72,16 @@ const Login = () => {
             <div className="flex flex-col space-y-4">
             <span className="text-2xl font-bold text-center"> Sign in</span>
             <form  onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 ">
-                <label className="font-semibold">Email</label>
-                <input type="text"  placeholder="your@gmail.com" {...register('email')} className="px-6 py-2 text-left border-2 border-slate-300"/>
+             
+                <Input type="text"  label="your@email.com" icon={<i className="fa-regular fa-rectangle-list"/>}
+                 {...register('email')}  className="px-6 py-2 text-left border-2 border-slate-300"/>
                 {errors.email && <span className="text-sm text-red-600">{errors.email.message}</span>}
-                <label className="font-semibold">Password</label>
-                <input type="password"  placeholder="Enter Password .."  {...register('password')}  autoComplete="true" className="px-6 py-2 text-left border-2 border-slate-300" />
+
+                <Input type="password"  label="Enter Password .." icon={<i className="fa-regular fa-rectangle-list"/>}
+                  {...register('password')}  autoComplete="true" className="px-6 py-2 text-left border-2 border-slate-300" />
                 {errors.password && <span className="text-sm text-red-600">{errors.password.message}</span>}
-                <button type="submit"  className="px-6 py-2 text-white bg-black rounded-md">Sign in</button>
+                
+                <Button type="submit"  className="px-6 py-2 text-white bg-black rounded-md">Sign in</Button>
             </form>
             <div className=" flex flex-col items-center ">
                 <span>or</span>

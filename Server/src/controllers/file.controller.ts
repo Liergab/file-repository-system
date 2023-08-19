@@ -14,7 +14,7 @@ export const getFile:RequestHandler = asyncHandler( async(req:AuthRequest, res) 
     
    }
     const getFile = await files.find({user :req.user.id}).exec();
-    res.status(200).json({data:getFile, person:req.user})
+    res.status(200).json(getFile)
 
 });
 

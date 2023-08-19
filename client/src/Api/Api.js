@@ -1,9 +1,30 @@
 import {useQuery} from '@tanstack/react-query'
 import axios from 'axios'
 
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  });
+
+  
+
 export const FetchProfileData = () => {
     const {data, isLoading, isError} = useQuery(['userProfile'], async() => {
         const response = await axios.get("http://localhost:8000/api/protected");
+      
+        return response.data
+        
+    });
+
+    return {data, isLoading, isError}
+}
+
+export const Fetchfile = () => {
+    const {data, isLoading, isError} = useQuery(['files'], async() => {
+        const response = await axios.get("http://localhost:8000/api/file");
         return response.data
         
     });
@@ -22,13 +43,7 @@ export const CreateProfileData = async(UserData) => {
     return response.data
 }
 
-axios.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-  });
+
 
 
 export const LoginUser = async (formData) => {

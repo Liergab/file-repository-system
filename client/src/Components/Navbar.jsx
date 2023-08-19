@@ -8,9 +8,9 @@ const Navbar = () => {
       <Link to='/'>
         <h1 className="font-bold text-2xl">File-Repo</h1>
       </Link> 
-      <Link to='/sample'>
+      {/* <Link to='/sample'>
         <h1 className="font-bold text-2xl">Protected</h1>
-      </Link>
+      </Link> */}
       <div className="md:hidden block" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <span><i className="fa-solid fa-xmark font-bold text-2xl"></i></span>:
          <span><i className="fa-solid fa-bars font-bold text-2xl"></i></span> 

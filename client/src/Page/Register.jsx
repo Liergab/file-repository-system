@@ -7,7 +7,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { CreateProfileData } from "../Api/Api"
-
+import { Input,Button } from "@material-tailwind/react";
 import {  toast } from "react-hot-toast"
 // import axios from "axios"
 
@@ -56,20 +56,16 @@ const Register = () => {
      <FormFormat>
             <div className="flex flex-col space-y-2">
             <span className="text-2xl font-bold text-center"> Register</span>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-2 ">
-                <label className="font-semibold">Username</label>
-                <input type="text"  placeholder="Enter username" {...register('username')} className="px-6   py-[6px] text-left border-2 border-slate-300 text-sm"/>  
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 ">
+                <Input type="text"  label="Username"  icon={<i className="fa-regular fa-rectangle-list"/>} {...register('username')} className="px-6   py-[6px] text-left border-2 border-slate-300 text-sm"/>  
                    {errors.username && <span className="text-sm text-red-600">{errors.username.message}</span>}
-                <label className="font-semibold">Email</label>  
-                <input type="text"  placeholder="your@gmail.com" {...register('email')} className="px-6 py-[6px]  text-left border-2 border-slate-300  text-sm"/>
+                <Input type="text"  label="Your@Email.com" icon={<i className="fa-regular fa-rectangle-list"/>} {...register('email')} className="px-6 py-[6px]  text-left border-2 border-slate-300  text-sm"/>
                    {errors.email && <span className="text-sm text-red-600">{errors.email.message}</span>} 
-                <label className="font-semibold">Password</label>
-                <input type="password"  placeholder="Enter Password .."{...register('password')}  className="px-6  py-[6px] text-left border-2 border-slate-300  text-sm" />
+                <Input type="password"  label="Password"{...register('password')} icon={<i className="fa-regular fa-rectangle-list"/>}  className="px-6  py-[6px] text-left border-2 border-slate-300  text-sm" />
                    {errors.password && <span className="text-sm text-red-600">{errors.password.message}</span>} 
-                <label className="font-semibold">Confirm Password</label>
-                <input type="password"  placeholder="Enter Confirm Password .."{...register('confirmPassword')}  className="px-6  py-[6px]  text-left border-2 border-slate-300  text-sm" />
+                <Input type="password"  label="Confirm Password .."{...register('confirmPassword')} icon={<i className="fa-regular fa-rectangle-list"/>}  className="px-6  py-[6px]  text-left border-2 border-slate-300  text-sm" />
                    {errors.confirmPassword && <span className="text-sm text-red-600">{errors.confirmPassword.message}</span>} 
-                <button type="submit" style={{marginTop:'20px'}}  className="px-6 py-2  text-white bg-black rounded-md ">Register</button>
+                <Button type="submit" style={{marginTop:'20px'}}  className="px-6 py-2  text-white bg-black rounded-md ">Register</Button>
 
             </form>
             <div className=" flex flex-col items-center ">
