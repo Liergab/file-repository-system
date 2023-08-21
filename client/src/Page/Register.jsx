@@ -40,7 +40,7 @@ const Register = () => {
   const onSubmit = async(data) => {
     try {
       const user = await createProfileData.mutateAsync(data);
-      toast.success('Welcome');
+      toast.success('You may now Login');
       navigate('/login');
       console.log(user);
     } catch (error) {

@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config';
+
 import env from './utils/EnvValidation';
 import cors from 'cors'
 import db from './config/dbConnection';
@@ -16,6 +17,8 @@ app.use('/api/file/', fileRouter)
 app.use('/api/', UserRouter )
 app.use(notFoundPage)
 app.use(ErrorHandler)
+
+
 
 const Port = env.PORT || 8000 ;
 

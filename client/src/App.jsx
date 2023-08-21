@@ -7,6 +7,7 @@ import './App.css'
 import {Toaster} from 'react-hot-toast'
 import PrivateRoutes from './util/PrivateRoutes'
 import Sample from './Page/Sample'
+import Logout from './Components/Logout'
 
 const App = () => {
   return (
@@ -17,9 +18,11 @@ const App = () => {
         <Route path='/' element={<HomePage/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<SignIn/>}/>
+        
         <Route element={<PrivateRoutes/>}>
           <Route path='/dashboard' element={<Dashboard/>} exact/>
           <Route path='/sample' element={<Sample/>} exact/>
+          <Route path='/logout' element={<Logout />} />
 
         </Route>
       

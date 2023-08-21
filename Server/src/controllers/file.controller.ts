@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler'
 import mongoose from "mongoose";
 import { AuthRequest } from '../Types/Types';
 
+
 //  @decs - get file data
 // @routes - get api/file
 //  @access - public
@@ -46,9 +47,11 @@ export const getFileById:RequestHandler = asyncHandler( async(req:AuthRequest, r
     res.status(404)
     throw new Error('Id cannot found!')
   }
-  res.status(200).json({data:getFileById, person:req.user})
+  res.status(200).json(getFileById)
 
 });
+
+
 
 
 //  @decs - Create files
@@ -56,6 +59,7 @@ export const getFileById:RequestHandler = asyncHandler( async(req:AuthRequest, r
 //  @access - public
 export const createFile:RequestHandler = asyncHandler(async(req:AuthRequest, res) => {
     const {memo ,title} = req.body;
+    
 
     if(!memo || !title){
         res.status(400);

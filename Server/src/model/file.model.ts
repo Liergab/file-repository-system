@@ -14,7 +14,7 @@ const fileSchema = new Schema ({
     title:{
         type:String,
         required:true
-    },
+    }
 },{timestamps:true})
 
 type File = InferSchemaType<typeof fileSchema>;
