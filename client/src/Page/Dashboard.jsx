@@ -94,13 +94,7 @@ const Dashboard = () => {
                          
                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                        >
-                         <Typography
-                           variant="small"
-                           color="blue-gray"
-                           className="font-normal leading-none opacity-70"
-                         >
-                           
-                         </Typography>
+                        
                        </th>
                      
                     </tr>
@@ -141,24 +135,14 @@ const Dashboard = () => {
                             </Typography>
                           </td>
                           <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
+                           
                               <Edit id={file._id} />
-                             
-                            </Typography>
+              
                           </td>
                           <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
+                          
                               <Delete id={file._id} />
                              
-                            </Typography>
                           </td>
                         </tr>
                         

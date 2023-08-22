@@ -64,9 +64,9 @@ const AddFiles = () => {
             <Card color="transparent" shadow={false}>
                 <form onSubmit={handleSubmit(onSubmit)} className=" mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
                     <div className="mb-4 flex flex-col gap-6">
-                    <Input type='text' size="lg" label="Memo" {...register('memo')} />
+                    <Input type='text' name='memo' size="lg" label="Memo" {...register('memo')} />
                     {errors.memo && <h1 className='text-sm text-red-600'>{errors.memo.message}</h1>}
-                    <Input type='text' size="lg" label="Title" {...register('title')} />
+                    <Input type='text' name='title' size="lg" label="Title" {...register('title')} />
                     {errors.title && <h1 className='text-sm text-red-600'>{errors.title.message}</h1>}
                     </div>
                     <Button type='submit' className="mt-6" fullWidth >
