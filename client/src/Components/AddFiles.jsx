@@ -5,6 +5,8 @@ import {Button,
     DialogFooter,
     Card,
     Input,
+    Tooltip,
+    IconButton
     
 } from '@material-tailwind/react'
 import { useState } from 'react'
@@ -14,6 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {toast} from 'react-hot-toast'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 const AddFiles = () => {
 
@@ -56,7 +59,12 @@ const AddFiles = () => {
   return (
     <>
     <div>
-      <Button color='blue' onClick={handleOpen} >Add</Button>
+      
+      <Tooltip content="Add User">
+            <IconButton variant="text">
+                < PlusIcon className="h-4 w-4" onClick={handleOpen} />
+            </IconButton>
+        </Tooltip>
     </div>
     <Dialog open={open} handler={handleOpen}>
         <DialogHeader>Add files</DialogHeader>

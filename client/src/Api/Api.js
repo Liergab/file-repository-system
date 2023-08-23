@@ -23,13 +23,13 @@ export const FetchProfileData = () => {
 }
 
 export const Fetchfile = () => {
-    const {data, isLoading, isError} = useQuery(['files'], async() => {
+    const {data, isLoading, isError, refetch} = useQuery(['files'], async() => {
         const response = await axios.get("http://localhost:8000/api/file");
         return response.data
         
     });
 
-    return {data, isLoading, isError}
+    return {data, isLoading, isError, refetch}
 }
 
 export const CreateProfileData = async(UserData) => {

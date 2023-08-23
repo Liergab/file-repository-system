@@ -2,155 +2,117 @@
 import { FetchProfileData } from "../Api/Api"
 
 import { Fetchfile } from "../Api/Api"
-import { Spinner,Card, Typography  } from "@material-tailwind/react";
+import { Spinner} from "@material-tailwind/react";
 import UserNavbar from "../Components/UserNavbar";
 import AddFiles from "../Components/AddFiles";
 import Edit from "../Components/Edit";
-import Delete from "../Components/Delete";
+
+import DataTable from 'react-data-table-component';
+import { useQueryClient,useMutation } from '@tanstack/react-query';
+import { DeleteFileList } from '../Api/Api';
+import { toast } from 'react-hot-toast';
+import { Tooltip,IconButton} from '@material-tailwind/react';
+import { TrashIcon } from "@heroicons/react/24/solid";
+
+
+// import Delete from "../Components/Delete";
 
 
 const Dashboard = () => {
   
-  const {data: user, isError} = FetchProfileData()
-  const {data: files , isLoading} = Fetchfile()
+  const {data: user} = FetchProfileData()
+  const  {data,isLoading,} = Fetchfile()
+  
+  // const [records, setRecords] = useState(null)
+  
+  //   if (data && records === null) {
+  //     setRecords(data);
+  //   }
+  
+
+const queryClient = useQueryClient()
+  const deletefile = useMutation({
+      mutationFn:DeleteFileList,
+      onSuccess: () => {
+          toast.success('Successfully Delete')
+          queryClient.invalidateQueries({ queryKey: ['files'] })
+      }
+  })
+  const handleDelete = (id) => {
+    deletefile.mutate(id)
+  }
+
+
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+
  
 
   
 
-  if(isError) {
-    <h1>Error</h1>
-  }
+  
 
   if(isLoading) return <div><Spinner /></div>
  
   return (
     <div>
       <UserNavbar/>
-        <div className="h-[calc(100vh-80px)] flex flex-col flex-wrap space-y-10 text-center  px-0  md:px-28 overflow-auto ">
+        <div className="h-[calc(100vh-80px)] flex flex-col space-y-2 text-center  px-0  md:px-28 overflow-x: auto ">
           <div>
             <h1 className="font-semibold text-md text-left mt-5"> WELCOME, {user?.username.toUpperCase()} ! </h1> 
           </div>
-          <div className="text-left">
-            <AddFiles />
-          </div>
-          <div>
-              <Card className="h-full w-full ">
-                <table className="w-full min-w-max table-auto text-left">
-                  <thead>
-                    <tr>
-                     
-                        <th
-                         
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-sm md:text-normal"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70 text-sm md:text-normal"
-                          >
-                            Memo
-                          </Typography>
-                        </th>
-                        
-                        <th
-                         
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 "
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
-                          >
-                            Title
-                          </Typography>
-                        </th>
-                        
-                        <th
-                         
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70 text-sm md:text-normal"
-                          >
-                            Date
-                          </Typography>
-                        </th>
-                        
-                        <th
-                         
-                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-sm md:text-normal"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70 text-sm md:text-normal"
-                          >
-                            Action
-                          </Typography>
-                        </th>
-                        <th
-                         
-                         className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                       >
-                        
-                       </th>
-                     
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {files.length == 0 ? <h1 className="mt-5 mb-5">No File Found... </h1> : <>
-                    {files.map((file, index) => {
-                      const isLast = index === file.length - 1;
-                      const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+          <div className="h-40">
+          <DataTable
+            columns={[
+              {
+                  name: 'Title',
+                  selector: row => row.title,
+                  
+              },
+              {
+                  name: 'Memo',
+                  selector: row => row.memo,
+                  style: {
+                    backgroundColor: 'gray',
+                    color: 'white',
+                    '&:hover': {
+                      cursor: 'pointer',
+                    },
+                  },
+                  
+              },{
+                name: 'Date',
+                selector: row => row.createdAt,
+                
           
-                      return (
-                        <tr key={index}>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {file.memo}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {file.title}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal"
-                            >
-                              {file.createdAt}
-                            </Typography>
-                          </td>
-                          <td className={classes}>
-                           
-                              <Edit id={file._id} />
-              
-                          </td>
-                          <td className={classes}>
-                          
-                              <Delete id={file._id} />
-                             
-                          </td>
-                        </tr>
-                        
-                      );
-                    })}</>}
-                  </tbody>
-                </table>
-            </Card>
+              },{
+                name:'Action',
+                cell: row => (
+
+                  <div className='flex'>
+                  <Tooltip content="Delete User">
+                    <IconButton variant="text">
+                        <TrashIcon className="h-4 w-4" onClick={() => handleDelete(row._id)}  />
+                    </IconButton>
+                  </Tooltip>
+                  <div>
+                    <Edit id={row._id} />
+                  </div>
+                  <div>
+                    <AddFiles/>
+                  </div>
+                  </div> 
+                )
+                
+              }
+          ]}
+            data={data}
+            pagination 
+            fixedHeader
+        /> 
           </div>
           </div>
     </div>

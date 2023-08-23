@@ -1,19 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import DataTable from 'react-data-table-component';
 import { Fetchfile } from '../Api/Api';
 import { useQueryClient,useMutation } from '@tanstack/react-query';
 import { DeleteFileList } from '../Api/Api';
 import { toast } from 'react-hot-toast';
-import { Tooltip,IconButton } from '@material-tailwind/react';
+import { Tooltip,IconButton,Input} from '@material-tailwind/react';
 import { TrashIcon } from "@heroicons/react/24/solid";
 import Edit from '../Components/Edit';
+import {  useState } from 'react';
+
 
 
 
 
 
 function Sample() {
-  const  {data,isLoading} = Fetchfile()
+  const  {data,isLoading,isError} = Fetchfile()
+  
+    const [records, setRecords] = useState(null)
+    
+      if (data && records === null) {
+        setRecords(data);
+      }
+    
+
   const queryClient = useQueryClient()
     const deletefile = useMutation({
         mutationFn:DeleteFileList,
@@ -26,11 +37,34 @@ function Sample() {
       deletefile.mutate(id)
     }
 
-    if(isLoading) return <h1>Loading .....</h1>
+    const handleChange = (e) => {
+      const newdata = data.filter((row) => {
+        return row.title.toLowerCase().includes(e.target.value.toLowerCase())
+      })
+      return setRecords(newdata)
+    }
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (isError) {
+      return <p>Error: {isError.message}</p>;
+    }
+  
+    // Once the data is fetched, store it in the state
+  
+   
+
+   
+
+
+    
     return (
       <div className='flex flex-col items-center place-content-center mt-10'>
         <div>
-        
+          
+          <Input label='Search' onChange={handleChange}/>
         </div>
          <DataTable
             columns={[
@@ -73,7 +107,7 @@ function Sample() {
                 
               }
           ]}
-            data={data}
+            data={records}
             pagination 
             fixedHeader
         /> 
