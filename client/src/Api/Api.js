@@ -22,6 +22,17 @@ export const FetchProfileData = () => {
     return {data, isLoading, isError}
 }
 
+export const FetchProfileDataById = (id) => {
+    const {data, isLoading, isError} = useQuery(['userProfile',id], async() => {
+        const response = await axios.get(`http://localhost:8000/api/protected/${id}`);
+      
+        return response.data
+        
+    });
+
+    return {data, isLoading, isError}
+}
+
 export const Fetchfile = () => {
     const {data, isLoading, isError, refetch} = useQuery(['files'], async() => {
         const response = await axios.get("http://localhost:8000/api/file");
@@ -42,6 +53,18 @@ export const CreateProfileData = async(UserData) => {
    
     return response.data
 }
+
+export const UpdatedUserProfile = async(UpdatedUser) => {
+  
+    const response = await axios.put(`http://localhost:8000/api/update/${UpdatedUser.id}`, UpdatedUser,{
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(UpdatedUser)
+    });
+    
+    return response.data
+};
 
 
 

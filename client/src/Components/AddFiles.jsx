@@ -44,6 +44,7 @@ const AddFiles = () => {
     })
 
     const onSubmit = async(data) => {
+      console.log(data)
         try {
           const user = await createFiles.mutateAsync(data);
           toast.success('Succefully added');
@@ -76,6 +77,8 @@ const AddFiles = () => {
                     {errors.memo && <h1 className='text-sm text-red-600'>{errors.memo.message}</h1>}
                     <Input type='text' name='title' size="lg" label="Title" {...register('title')} />
                     {errors.title && <h1 className='text-sm text-red-600'>{errors.title.message}</h1>}
+                    {/* <Input type='file' accept=".pdf" name='file' size="lg" label="file" {...register('file')} />
+                    {errors.file && <h1 className='text-sm text-red-600'>{errors.file.message}</h1>} */}
                     </div>
                     <Button type='submit' className="mt-6" fullWidth >
                      Add

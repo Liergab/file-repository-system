@@ -6,6 +6,8 @@ const router = express.Router()
 
 router.post('/register', controller.userRegister)
 router.post('/login', controller.userLogin)
-router.get('/Protected', protect, controller.protects)
+router.get('/protected', protect, controller.protect)
+router.get('/protected/:id',protect, controller.protectById)
+router.put('/update/:id',  controller.updateUser  )
 
 export default router

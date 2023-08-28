@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import generateToken from '../utils/GenerateToken';
 import { AuthRequest } from '../Types/Types';
 
+
 //  @decs - Register
 // @routes - get api/register
 //  @access - public
@@ -55,28 +56,61 @@ type login = {
 
 export const userLogin:RequestHandler<unknown, unknown, login, unknown> = asyncHandler( async(req,res) => {
     const {email, password} = req.body
-
-
     const user = await User.findOne({email})
-    if(!user){
+    const verify = await User.find({email})
+    if(!verify){
         res.json(400)
-        throw new Error('Email not found')
-    }
-    if(user && (await bcrypt.compare(password, user.password))){
-        res.status(200).json({
-            _id: user.id,
-            email: user.email,
-            username: user.username,
-            generateToken:generateToken(user.id)
-        })
+        throw new Error('No Email mAtch')
     }else{
-        res.status(400)
-        throw new Error('Invalid Credentials')
+        if(user && (await bcrypt.compare(password, user.password))){
+            res.status(200).json({
+                _id: user.id,
+                email: user.email,
+                username: user.username,
+                generateToken:generateToken(user.id)
+            })
+        }else{
+            res.status(400)
+            throw new Error('Invalid Password / Email')
+        }
     }
+   
 });
 
-export const protects:RequestHandler = asyncHandler( (req:AuthRequest,res) => {
-  res.json(req.user)
-});
+export const updateUser:RequestHandler = asyncHandler(async(req, res) => {
+    const {email, username, password} = req.body;
+    const id = (req.params.id).trim();
+
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(password, salt)
+    const update = await User.findByIdAndUpdate(id,{$set:{
+         email,
+         username,
+         password:hashPassword
+    }});
+     res.status(200).json({update})
+
+
+})
+
+export const protectById:RequestHandler = asyncHandler(async(req:AuthRequest, res) => {
+        const id = (req.params.id).trim()
+        const getId = await User.findById(id)
+        if(getId?._id.toString() !== req.user.id){
+            res.status(401)
+            throw new Error("You cant manipulate or see the other file of users");
+            
+          }
+        res.status(200).json(getId)
+})
+
+
+
+
+
+
+export const protect:RequestHandler = asyncHandler(async (req:AuthRequest,res) => {
+    res.json(req.user)
+})
 
 

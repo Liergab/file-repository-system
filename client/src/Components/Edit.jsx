@@ -30,10 +30,6 @@ const Edit = ({id}) => {
     }
     const {data:FilebyId} = FetchFileListById(id);
    
-
-   
-
-    
     const updateFile = useMutation({
         mutationFn:UpdatedFileList,
         onSuccess: () => {
