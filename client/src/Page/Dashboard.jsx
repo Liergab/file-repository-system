@@ -49,8 +49,10 @@ const queryClient = useQueryClient()
     <div>
       <UserNavbar/>
         <div className="h-[calc(100vh-80px)] flex flex-col space-y-2 text-center  px-0  md:px-28 overflow-x: auto z-0 ">
-          <div>
+          <div className="flex justify-between items-center place-content-center">
+            <div> <AddFiles/></div>
             <h1 className="font-semibold text-md text-left mt-5"> WELCOME, {user?.username.toUpperCase()} ! </h1> 
+            
           </div>
           <div className="h-40">
             {isLoading ? <span className="flex items-center place-content-center" ><Spinner /></span> : 
@@ -92,9 +94,6 @@ const queryClient = useQueryClient()
                   </Tooltip>
                   <div>
                     <Edit id={row._id} />
-                  </div>
-                  <div>
-                    <AddFiles/>
                   </div>
                   </div> 
                 )

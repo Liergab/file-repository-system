@@ -62,9 +62,10 @@ const AddFiles = () => {
     <div>
       
       <Tooltip content="Add User">
-            <IconButton variant="text">
-                < PlusIcon className="h-4 w-4" onClick={handleOpen} />
-            </IconButton>
+           
+                {/* < PlusIcon className="h-4 w-4" onClick={handleOpen} /> */}
+                <Button onClick={handleOpen} size="sm">Add</Button>
+           
         </Tooltip>
     </div>
     <Dialog open={open} handler={handleOpen}>
