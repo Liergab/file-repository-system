@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { AuthRequest } from '../Types/Types';
 
 
+
 //  @decs - get file data
 // @routes - get api/file
 //  @access - public
@@ -57,11 +58,14 @@ export const getFileById:RequestHandler = asyncHandler( async(req:AuthRequest, r
 //  @decs - Create files
 // @routes - post api/file:id
 //  @access - public
-export const createFile:RequestHandler = asyncHandler(async(req:AuthRequest, res) => {
-    const {memo ,title} = req.body;
-    
 
-    if(!memo || !title){
+
+
+export const createFile:RequestHandler = asyncHandler(async(req:AuthRequest, res) => {
+    const {memo ,title, } = req.body;
+    console.log(req.file)
+
+    if(!memo || !title ){
         res.status(400);
         throw new Error('All Fields required!')
     } 
@@ -72,9 +76,9 @@ export const createFile:RequestHandler = asyncHandler(async(req:AuthRequest, res
       
      }
 
-    const createFile = await files.create({memo, title, user:req.user.id});
+    const createFile = await files.create({memo, title, image: req.file?.filename,  user:req.user.id});
 
-    res.status(201).json({message:'Successfull', Data:createFile, person:req.user})
+    res.status(201).json(createFile)
 });
 
 

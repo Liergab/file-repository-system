@@ -6,7 +6,7 @@ import {Button,
     Card,
     Input,
     Tooltip,
-    IconButton
+    
     
 } from '@material-tailwind/react'
 import { useState } from 'react'
@@ -16,7 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {toast} from 'react-hot-toast'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { PlusIcon } from "@heroicons/react/24/solid";
+
 
 const AddFiles = () => {
 
@@ -37,6 +37,7 @@ const AddFiles = () => {
     const schema = yup.object().shape({
         title:yup.string().required('Title is required!'),
         memo:yup.string().required('Memo is Required!')
+        
     })
 
     const {register, handleSubmit, formState:{errors}} = useForm({
@@ -44,9 +45,13 @@ const AddFiles = () => {
     })
 
     const onSubmit = async(data) => {
-      console.log(data)
+      const formData = new FormData();
+      formData.append('file', data.file[0]);
+      formData.append('title', data.title);
+      formData.append('memo', data.memo);
+      console.log(formData)
         try {
-          const user = await createFiles.mutateAsync(data);
+          const user = await createFiles.mutateAsync(formData);
           toast.success('Succefully added');
          
           console.log(user);
@@ -78,8 +83,8 @@ const AddFiles = () => {
                     {errors.memo && <h1 className='text-sm text-red-600'>{errors.memo.message}</h1>}
                     <Input type='text' name='title' size="lg" label="Title" {...register('title')} />
                     {errors.title && <h1 className='text-sm text-red-600'>{errors.title.message}</h1>}
-                    {/* <Input type='file' accept=".pdf" name='file' size="lg" label="file" {...register('file')} />
-                    {errors.file && <h1 className='text-sm text-red-600'>{errors.file.message}</h1>} */}
+                    <Input type='file'  name='file' size="lg" label="file" {...register('file')} />
+                    {errors.file && <h1 className='text-sm text-red-600'>{errors.file.message}</h1>}
                     </div>
                     <Button type='submit' className="mt-6" fullWidth >
                      Add

@@ -38,11 +38,9 @@ const UserNavbar = () => {
     {isOpen && 
      <div className="mt-4">
      <ul className="flex flex-col space-y-2 ">
-         <Link to='/register'>
-             <li className="font-medium hover:text-sky-600">
-                 Settings <span><i className="fa-solid fa-user-tie"></i></span>
-             </li>
-         </Link>
+          <li className="font-medium hover:text-sky-600 z-10">
+            <span className="flex"><Profile /></span>
+          </li>
         <Link to='/logout'>
              <li className=" hover:text-sky-600 font-medium">
                  Logout <span><i className="fa-solid fa-right-from-bracket"></i></span>

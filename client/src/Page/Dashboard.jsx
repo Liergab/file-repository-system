@@ -12,7 +12,7 @@ import { useQueryClient,useMutation } from '@tanstack/react-query';
 import { DeleteFileList } from '../Api/Api';
 import { toast } from 'react-hot-toast';
 import { Tooltip,IconButton} from '@material-tailwind/react';
-import { SparklesIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 
 // import Delete from "../Components/Delete";
@@ -82,11 +82,20 @@ const queryClient = useQueryClient()
                 sortable:true
                 
           
+              }, {
+                name:'Image',
+                cell: row => (
+
+                  <div className='flex '>
+                   <img src={`http://localhost:8000/public/Images/${row.image}`} alt="" className="w-10" />
+                  </div> 
+                )
+                
               },{
                 name:'Action',
                 cell: row => (
 
-                  <div className='flex'>
+                  <div className='flex ml-10'>
                   <Tooltip content="Delete User">
                     <IconButton variant="text">
                         <TrashIcon className="h-4 w-4" onClick={() => handleDelete(row._id)}  />
@@ -98,7 +107,8 @@ const queryClient = useQueryClient()
                   </div> 
                 )
                 
-              }
+              },
+             
           ]}
             data={data}
             pagination 

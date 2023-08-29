@@ -78,12 +78,12 @@ export const LoginUser = async (formData) => {
 
 // file api
 
-export const CreateFiles = async(UserData) => {
-    const response = await axios.post(`http://localhost:8000/api/file`, UserData,{
+export const CreateFiles = async(formData) => {
+    const response = await axios.post(`http://localhost:8000/api/file`, formData,{
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'multipart/form-data'
         },
-        body: JSON.stringify(UserData)
+        body: JSON.stringify(formData)
     });
    
     return response.data
