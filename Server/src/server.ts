@@ -11,10 +11,12 @@ import UserRouter from './routes/UserRoutes'
 
 
 
+
 const app = express();
 app.use(cors());
 app.use(express.json())
 app.use(express.static('src'))
+
 app.use(express.urlencoded({extended:true}));
 app.use('/api/file/', fileRouter)
 app.use('/api/', UserRouter )
