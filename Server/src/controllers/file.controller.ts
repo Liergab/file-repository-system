@@ -76,7 +76,8 @@ export const createFile:RequestHandler = asyncHandler(async(req:AuthRequest, res
       
      }
 
-    const createFile = await files.create({memo, title, image: req.file?.filename,  user:req.user.id});
+    const createFile = await files.create({memo, title,   user:req.user.id , name: req.file?.originalname,
+      path: req.file?.path,});
 
     res.status(201).json(createFile)
 });
