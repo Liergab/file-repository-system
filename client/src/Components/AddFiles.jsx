@@ -46,7 +46,7 @@ const AddFiles = () => {
 
     const onSubmit = async(data) => {
       const formData = new FormData();
-      formData.append('file', data.file[0]);
+      formData.append('pdf', data.file[0]);
       formData.append('title', data.title);
       formData.append('memo', data.memo);
       console.log(formData)
@@ -83,7 +83,7 @@ const AddFiles = () => {
                     {errors.memo && <h1 className='text-sm text-red-600'>{errors.memo.message}</h1>}
                     <Input type='text' name='title' size="lg" label="Title" {...register('title')} />
                     {errors.title && <h1 className='text-sm text-red-600'>{errors.title.message}</h1>}
-                    <Input type='file'  name='file' size="lg" label="file" {...register('file')} />
+                    <Input type='file' accept='pdf'  name='pdf' size="lg" label="file" {...register('file')} />
                     {errors.file && <h1 className='text-sm text-red-600'>{errors.file.message}</h1>}
                     </div>
                     <Button type='submit' className="mt-6" fullWidth >
