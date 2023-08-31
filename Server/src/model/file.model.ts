@@ -17,7 +17,9 @@ const fileSchema = new Schema ({
     },
     image:{
         type:String
-    }
+    },
+    name: {type: String},
+     path: String,
     
 },{timestamps:true})
 
