@@ -83,11 +83,13 @@ const queryClient = useQueryClient()
                 
           
               }, {
-                name:'Image',
+                name:'PDF',
                 cell: row => (
 
                   <div className='flex '>
-                   <img src={`http://localhost:8000/public/Images/${row.image}`} alt="" className="w-10" />
+                   <a href={`http://localhost:8000/public/${row.name}`} target="_blank" rel="noopener noreferrer">
+                   <i className="fa-solid fa-file-pdf text-2xl "></i>
+                </a>
                   </div> 
                 )
                 
@@ -95,7 +97,7 @@ const queryClient = useQueryClient()
                 name:'Action',
                 cell: row => (
 
-                  <div className='flex ml-10'>
+                  <div className='flex '>
                   <Tooltip content="Delete User">
                     <IconButton variant="text">
                         <TrashIcon className="h-4 w-4" onClick={() => handleDelete(row._id)}  />
