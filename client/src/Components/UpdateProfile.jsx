@@ -118,7 +118,6 @@ const UpdateProfile = ({id}) => {
                         <Controller 
                             name='confirmPassword'
                             control={control}
-                            defaultValue='confirm password'
                             render={({field}) => (
                                 <Input type='text' 
                                 size="lg" 
@@ -129,7 +128,6 @@ const UpdateProfile = ({id}) => {
                             )}
                         />
                          {errors.confirmPassword && <span className="text-sm text-red-600">{errors.confirmPassword.message}</span>} 
-                       
                         </div>
                         
                         <Button type='submit' className="mt-6" fullWidth>

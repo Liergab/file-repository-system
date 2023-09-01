@@ -14,7 +14,10 @@ const userSchema = new Schema({
     email:{
         type:String,
         required:true
-    }
+    },
+   profileName:{
+    type:String
+   }
 },{timestamps:true});
 
 type User = InferSchemaType<typeof userSchema>;

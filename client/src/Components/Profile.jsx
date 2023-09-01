@@ -2,8 +2,8 @@ import {
   Popover,
   PopoverHandler,
   PopoverContent,
-  IconButton
-   
+  IconButton,
+   Avatar
   } from "@material-tailwind/react";
 import { FetchProfileData } from "../Api/Api";
 import UpdateProfile from "./UpdateProfile";
@@ -16,7 +16,8 @@ const Profile = () => {
        <Popover  className=" z-10">
           <PopoverHandler>
             <IconButton variant="text">
-              <i className="fa-solid fa-user-tie"></i>
+            <Avatar src="../../public/image/defaultpic.jpg" alt="avatar" size="xs" />
+              
             </IconButton>
          
           </PopoverHandler>

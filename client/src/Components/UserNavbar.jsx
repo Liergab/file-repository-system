@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import {} from '@heroicons/react/24/solid'
 import Profile from "./Profile"
+
 
 const UserNavbar = () => {
     const[isOpen, setIsOpen] = useState(false)

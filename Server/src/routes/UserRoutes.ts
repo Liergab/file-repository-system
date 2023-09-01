@@ -4,10 +4,13 @@ import protect from '../middleware/Protect'
 
 const router = express.Router()
 
+  
 router.post('/register', controller.userRegister)
 router.post('/login', controller.userLogin)
 router.get('/protected', protect, controller.protect)
 router.get('/protected/:id',protect, controller.protectById)
-router.put('/update/:id',  controller.updateUser  )
+router.put('/update/:id'  ,controller.updateUser )
+
+
 
 export default router

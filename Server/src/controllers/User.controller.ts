@@ -6,6 +6,7 @@ import generateToken from '../utils/GenerateToken';
 import { AuthRequest } from '../Types/Types';
 
 
+
 //  @decs - Register
 // @routes - get api/register
 //  @access - public
@@ -86,7 +87,8 @@ export const updateUser:RequestHandler = asyncHandler(async(req, res) => {
     const update = await User.findByIdAndUpdate(id,{$set:{
          email,
          username,
-         password:hashPassword
+         password:hashPassword,
+         profileName: req.file?.originalname
     }});
      res.status(200).json({update})
 
@@ -103,6 +105,7 @@ export const protectById:RequestHandler = asyncHandler(async(req:AuthRequest, re
           }
         res.status(200).json(getId)
 })
+
 
 
 
