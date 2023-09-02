@@ -1,9 +1,32 @@
+import { Button } from "@material-tailwind/react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+
+
 const Navbar = () => {
     const[isOpen, setIsOpen] = useState(false)
+    const [theme, setTheme] = useState('dark')
+
+    const option =[
+        {
+            icon:"sunny",
+            text:"light"
+        },
+        {
+            icon:"moon",
+            text:"dark"
+        },
+        {
+            icon:"desktop-outline",
+            text:"system"
+        }
+       
+
+    ]
+   
   return (
-   <nav className="md:flex bg-slate-100 py-6 items-center place-content-center justify-between border-b-2 border-blue-400">
+   <nav className="md:flex bg-slate-100 py-6 items-center place-content-center justify-between border-b-2
+    border-blue-400 dark:text-gray-100 dark:bg-blue-gray-900 duration-100 ">
     <div className="flex item-center justify-between">
       <Link to='/'>
         <h1 className="font-bold text-2xl">File-Repo</h1>
@@ -19,7 +42,7 @@ const Navbar = () => {
     </div>
     
     <div className="hidden md:block">
-        <ul className="flex space-x-4">
+        <ul className="flex space-x-4 items-center">
             <Link to='/register'>
                 <li className="font-medium hover:text-sky-600">
                     Register <span><i className="fa-solid fa-right-to-bracket"></i></span>
@@ -30,8 +53,22 @@ const Navbar = () => {
                     Login <span><i className="fa-solid fa-user"></i></span>
                 </li>
             </Link>
+          <li>
+            <li>
+            {option.map((opt) => (
+            <Button key={opt.text}
+             variant="text"
+             size="md"
+             className={` w-auto text-md ${theme === opt.text && ' text-blue-800'}`} onClick={() => setTheme(opt.text)}>
+                <ion-icon name={opt.icon}></ion-icon>
+            </Button>
+        ))}
+            </li>
+          </li>
            
         </ul>
+
+        
     </div>
 
     {isOpen && 

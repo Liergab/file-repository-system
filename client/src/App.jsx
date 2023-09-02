@@ -12,7 +12,7 @@ import Logout from './Components/Logout'
 const App = () => {
   return (
    
-    <div className='App bg-slate-100'>
+    <div className='App dark:text-gray-100 dark:bg-blue-gray-900 duration-100 '>
        <Toaster position='top-right' toastOptions={{duration:2000}} />
       <Routes>
         <Route path='/' element={<HomePage/>}/>
