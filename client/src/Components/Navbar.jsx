@@ -1,12 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@material-tailwind/react"
-import { useState } from "react"
+
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 
 const Navbar = () => {
     const[isOpen, setIsOpen] = useState(false)
-    const [theme, setTheme] = useState('dark')
-
+    const [theme, setTheme] = useState(
+        localStorage.getItem('theme') ? localStorage.getItem('theme') : 'system'
+    )
+    const element = document.documentElement
+    const darkQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    console.log(element)
     const option =[
         {
             icon:"sunny",
@@ -20,9 +26,41 @@ const Navbar = () => {
             icon:"desktop-outline",
             text:"system"
         }
-       
-
     ]
+
+    const onWindowMatch = () => {
+        if(localStorage.theme === 'dark' || (!("theme" in localStorage) && darkQuery.matches)){
+            element.classList.add('dark')
+        }else{
+            element.classList.remove('dark')
+        }
+    }
+    onWindowMatch()
+    useEffect(() => {
+        switch (theme) {
+            case 'dark':
+                element.classList.add('dark')
+                localStorage.setItem('theme', 'dark')
+                break;
+            case 'light':
+                element.classList.remove('dark')
+                localStorage.setItem('theme', 'light')
+                break;
+            default:
+                localStorage.removeItem('theme')
+                break;
+        }
+    },[theme])
+
+    darkQuery.addEventListener('change', (e) => {
+        if(!('theme' in localStorage)){
+            if(e.matches){
+                element.classList.add('dark')
+            }else{
+                element.classList.remove('dark')
+            }
+        }
+    })
    
   return (
    <nav className="md:flex bg-slate-100 py-6 items-center place-content-center justify-between border-b-2
