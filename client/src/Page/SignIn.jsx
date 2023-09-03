@@ -69,7 +69,7 @@ const Login = () => {
         <div className="h-[calc(100vh-80px)]">
         
         <FormFormat>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 dark:text-black">
             <span className="text-2xl font-bold text-center"> Sign in</span>
             <form  onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 ">
              
