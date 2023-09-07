@@ -122,7 +122,16 @@ const Navbar = () => {
                  Login <span><i className="fa-solid fa-user"></i></span>
              </li>
          </Link>
-        
+         <li>
+            {option.map((opt) => (
+            <Button key={opt.text}
+             variant="text"
+             size="md"
+             className={` w-auto text-md ${theme === opt.text && ' text-blue-800'}`} onClick={() => setTheme(opt.text)}>
+                <ion-icon name={opt.icon}></ion-icon>
+            </Button>
+        ))}
+            </li>
      </ul>
  </div>
     }
